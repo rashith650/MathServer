@@ -64,7 +64,7 @@ Style the website using CSS for a user-friendly interface.
 Test the website by running the Flask server and interacting with the form.
 
 ## PROGRAM :
-''''
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -171,8 +171,7 @@ Test the website by running the Flask server and interacting with the form.
     </div>
 </body>
 </html>
-
-''''
+```
 ## Output:
 
 ![Screenshot 2024-10-26 092133](https://github.com/user-attachments/assets/efa00670-b50a-4112-b2a5-d189489b41a9)
