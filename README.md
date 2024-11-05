@@ -1,71 +1,38 @@
-
-## Ex 05: Server Side Processing
-
-
-## Date:
-26th October 2024
+# Ex.05 Design a Website for Server Side Processing
 
 ## AIM:
-To design a website that calculates the power of a lamp filament using the formula 
-𝑃
-=
-𝐼
-2
-×
-𝑅
-P=I 
-2
- ×R, with server-side processing.
+ To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
+
 
 ## FORMULA:
-𝑃
-=
-𝐼
-2
-×
-𝑅
-P=I 
-2
- ×R
-Where:
+P = I<sup>2</sup>R
+<br> P --> Power (in watts)
+<br> I --> Intensity
+<br> R --> Resistance
 
-𝑃
-P = Power (in watts)
-𝐼
-I = Intensity (in amps)
-𝑅
-R = Resistance (in ohms)
 ## DESIGN STEPS:
-## Step 1:
-Create the front-end using HTML to collect the intensity (I) and resistance (R) values from the user.
 
-## Step 2:
-Set up a Flask server to handle the form submission and calculate the power using the formula.
+### Step 1:
+Clone the repository from GitHub.
 
-## Step 3:
-Create a route in Flask to handle the POST request, extract user inputs, and compute the power using the formula 
-𝑃
-=
-𝐼
-2
-×
-𝑅
-P=I 
-2
- ×R.
+### Step 2:
+Create Django Admin project.
 
-## Step 4:
-Use Flask to send the computed result back to the client-side and display the result on the webpage.
+### Step 3:
+Create a New App under the Django Admin project.
 
-## Step 5:
-Style the website using CSS for a user-friendly interface.
+### Step 4:
+Create python programs for views and urls to perform server side processing.
 
-## Step 6:
-Test the website by running the Flask server and interacting with the form.
+### Step 5:
+Create a HTML file to implement form based input and output.
+
+### Step 6:
+Publish the website in the given URL.
 
 ## PROGRAM :
 ```
-
+math.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,11 +106,7 @@ Test the website by running the Flask server and interacting with the form.
             font-size: 18px;
             text-align: center;
             color: #555;
-            margin-top: 10px;
-        }
-    </style>
-
-    <script>
+     <script>
         function calculatePower(event) {
             event.preventDefault(); 
             let intensity = parseFloat(document.getElementById('intensity').value);
@@ -156,6 +119,7 @@ Test the website by running the Flask server and interacting with the form.
 <body>
     <div>
         <h1>Lamp Filament Power Calculator</h1>
+        <h2>YUVARAJ V 212223230252</h2>
         <form id="powerForm" onsubmit="calculatePower(event)">
             <label for="intensity">Intensity (I in Amps):</label>
             <input type="number" id="intensity" name="intensity" step="any" required>
@@ -170,13 +134,62 @@ Test the website by running the Flask server and interacting with the form.
         <p id="result">Please enter values and calculate power.</p>
     </div>
 </body>
-</html>
+</html>           margin-top: 10px;
+        }
+    </style>
+
+
 ```
-## Output:
+```
+views.py
+from django.shortcuts import render
+def power_calculation(request):
+    context = {
+        'power': "0",
+        'intensity': "0",
+        'resistance': "0"
+    }
+    
+    if request.method == 'POST':
+        print("POST method is used")
+        intensity = request.POST.get('intensity', '0')
+        resistance = request.POST.get('resistance', '0')
+        print('Intensity =', intensity)
+        print('Resistance =', resistance)
+        
+        # Calculate power using the formula P = I^2 * R
+        try:
+            power = (float(intensity) ** 2) * float(resistance)
+            context['power'] = f"{power:.2f}"
+            context['intensity'] = intensity
+            context['resistance'] = resistance
+            print('Power =', power)
+        except ValueError:
+            context['error'] = "Invalid input. Please enter numerical values for both intensity and resistance."
 
-![Screenshot 2024-10-26 092133](https://github.com/user-attachments/assets/efa00670-b50a-4112-b2a5-d189489b41a9)
+    return render(request, 'yuviapp/math.html', context)
+```
+```
+urls.py
+from django.contrib import admin
+from django.urls import path
+from yuviapp import views  # Adjust 'yuviapp' to your app name
 
-## Result":
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('power-calculation/', views.power_calculation, name='power_calculation'),
+    path('', views.power_calculation, name='home'),  # Set as the homepage
+]
+```
+## SERVER SIDE PROCESSING:
+![image](https://github.com/user-attachments/assets/af0eb6c9-9d2e-47eb-ba90-bac473fe7cd6)
 
+
+## HOMEPAGE:
+
+
+![Screenshot 2024-11-04 155051](https://github.com/user-attachments/assets/d310cd82-c59e-47c2-b708-f2eaf08927dd)
+
+
+## RESULT:
 The program for performing server side processing is completed successfully.
-
